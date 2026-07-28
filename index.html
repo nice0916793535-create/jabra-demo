@@ -1,1 +1,143 @@
-index.html
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JABRA 展示館 - 設備快速檢視儀表板</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome 預設圖示 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen p-6 font-sans">
+  <div class="max-w-7xl mx-auto space-y-6">
+    
+    <!-- 頂部標題與搜尋欄 -->
+    <header class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-700">
+      <div>
+        <h1 class="text-2xl font-bold flex items-center gap-2 text-blue-400">
+          <i class="fa-solid font-bold fa-network-wired"></i> JABRA 展示館設備資訊
+        </h1>
+        <p class="text-xs text-slate-400 mt-1">即時檢視、搜尋與快速複製設備 IP 與登入憑證</p>
+      </div>
+
+      <!-- 搜尋框 -->
+      <div class="relative w-full md:w-80">
+        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+        <input 
+          type="text" 
+          id="searchInput" 
+          placeholder="搜尋區域、設備、IP 或 MAC..." 
+          class="w-full bg-slate-800 border border-slate-700 rounded-lg pl-9 pr-4 py-2 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+          onkeyup="filterDevices()"
+        />
+      </div>
+    </header>
+
+    <!-- 設備卡片區塊 -->
+    <div id="deviceContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+  </div>
+
+  <script>
+    // 設備資料集 (取材自展示館試算表)
+    const deviceData = [
+      {
+        area: "JABRA 大廳",
+        badgeColor: "bg-blue-500/10 text-blue-400 border-blue-500/20",
+        items: [
+          { name: "大廳面板(牆壁)", ip: "192.168.20.30", user: "admin", pass: "NEOway2907!", mac: "6C-FB-ED-E1-9484" },
+          { name: "大廳桌面", ip: "192.168.20.29", user: "admin", pass: "NEOway2907!", mac: "6C-FB-ED-F4-8A-75" },
+          { name: "LED 鏡頭", ip: "192.168.20.28", user: "admin", pass: "NEOway2907!", mac: "98-42-AB-3D-BC-CF" },
+          { name: "串接器", ip: "192.168.20.61", user: "-", pass: "-", mac: "90:e2:fc:92:65:4d" },
+          { name: "天花鏡頭", ip: "192.168.20.54", user: "-", pass: "-", mac: "90:e2:fc:92:8f:40" },
+          { name: "天花鏡頭 2", ip: "192.168.20.55", user: "-", pass: "-", mac: "90:e2:fc:92:8f:a5" },
+          { name: "天花鏡頭 3", ip: "192.168.20.56", user: "-", pass: "-", mac: "90:e2:fc:92:8f:ea" },
+        ]
+      },
+      {
+        area: "JABRA 小廳",
+        badgeColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+        items: [
+          { name: "門口面板", ip: "192.168.20.42", user: "admin", pass: "NEOway2907!", mac: "6C-FB-ED-E1-94-50" },
+          { name: "桌面面板", ip: "192.168.20.41", user: "admin", pass: "NEOway2907!", mac: "6C-FB-ED-E1-91-15" },
+          { name: "鏡頭", ip: "192.168.20.40", user: "admin", pass: "NEOway2907!", mac: "6C-FB-ED-DB-4E-01" },
+        ]
+      },
+      {
+        area: "網路 AP / 其他",
+        badgeColor: "bg-purple-500/10 text-purple-400 border-purple-500/20",
+        items: [
+          { name: "WAX 214", ip: "192.168.20.15", user: "admin", pass: "niCE2099", mac: "-" },
+        ]
+      }
+    ];
+
+    function renderDevices(data) {
+      const container = document.getElementById('deviceContainer');
+      container.innerHTML = '';
+
+      data.forEach(group => {
+        if(group.items.length === 0) return;
+
+        const card = document.createElement('div');
+        card.className = "bg-slate-800/80 border border-slate-700/60 rounded-xl p-5 shadow-lg flex flex-col justify-between";
+        
+        let itemsHtml = group.items.map(item => `
+          <div class="py-3 border-b border-slate-700/50 last:border-0 space-y-1">
+            <div class="flex items-center justify-between text-sm">
+              <span class="font-semibold text-slate-200">${item.name}</span>
+              <a href="http://${item.ip}" target="_blank" class="font-mono text-xs text-blue-400 hover:underline flex items-center gap-1">
+                ${item.ip} <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </div>
+            <div class="flex items-center justify-between text-xs text-slate-400 font-mono">
+              <span>帳號: <strong class="text-slate-300">${item.user}</strong></span>
+              <span class="cursor-pointer hover:text-amber-300 transition" onclick="copyText('${item.pass}')" title="點擊複製密碼">
+                密碼: <strong class="text-amber-400">${item.pass}</strong> <i class="fa-regular fa-copy text-[10px] ml-1"></i>
+              </span>
+            </div>
+            <div class="text-[11px] text-slate-500 font-mono">MAC: ${item.mac}</div>
+          </div>
+        `).join('');
+
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <h2 class="text-base font-bold text-slate-100">${group.area}</h2>
+              <span class="text-xs px-2.5 py-0.5 rounded-full border ${group.badgeColor}">${group.items.length} 個設備</span>
+            </div>
+            <div class="divide-y divide-slate-700/40">${itemsHtml}</div>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    function filterDevices() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const filtered = deviceData.map(group => {
+        const filteredItems = group.items.filter(item => 
+          item.name.toLowerCase().includes(query) ||
+          item.ip.toLowerCase().includes(query) ||
+          item.user.toLowerCase().includes(query) ||
+          item.mac.toLowerCase().includes(query) ||
+          group.area.toLowerCase().includes(query)
+        );
+        return { ...group, items: filteredItems };
+      });
+      renderDevices(filtered);
+    }
+
+    function copyText(text) {
+      if(text === '-') return;
+      navigator.clipboard.writeText(text);
+      alert(`已複製密碼: ${text}`);
+    }
+
+    // 初始渲染
+    renderDevices(deviceData);
+  </script>
+</body>
+</html>
