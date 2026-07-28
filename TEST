@@ -3,58 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>個人簡介與展示頁</title>
+    <title>新向系統科技 - 全系列商品價格冊</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f8f9fa; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif; line-height: 1.6; color: #333; background-color: #f4f6f9; }
         
-        /* 頁首樣式 */
-        header { background: linear-gradient(135deg, #4f46e5, #6366f1); color: white; padding: 3rem 1.5rem; text-align: center; }
-        header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+        /* Header & Banner */
+        header { background: linear-gradient(135deg, #0052d4, #4364f7, #6fb1fc); color: white; padding: 2rem 1.5rem; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        header h1 { font-size: 2rem; margin-bottom: 0.3rem; }
         header p { font-size: 1.1rem; opacity: 0.9; }
+        .subtitle { font-size: 0.9rem; background: rgba(255,255,255,0.2); display: inline-block; padding: 0.2rem 0.8rem; border-radius: 20px; margin-top: 0.5rem; }
+
+        /* Search Bar */
+        .search-container { max-width: 1000px; margin: 1.5rem auto 0; padding: 0 1rem; }
+        .search-input { width: 100%; padding: 0.8rem 1.2rem; font-size: 1rem; border: 2px solid #e2e8f0; border-radius: 8px; outline: none; transition: border-color 0.2s; }
+        .search-input:focus { border-color: #4364f7; }
+
+        /* Main Grid Layout */
+        .container { max-width: 1000px; margin: 1.5rem auto 3rem; padding: 0 1rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
         
-        /* 主要內容區 */
-        .container { max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
-        .card { background: white; padding: 1.8rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 1.5rem; }
-        .card h2 { color: #4f46e5; margin-bottom: 0.8rem; border-bottom: 2px solid #eef2ff; padding-bottom: 0.4rem; font-size: 1.4rem; }
+        /* Cards */
+        .card { background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: transform 0.2s, box-shadow 0.2s; border-top: 4px solid #4364f7; }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0,0,0,0.1); }
+        .card h2 { color: #1e293b; font-size: 1.25rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; border-bottom: 1px solid #f1f5f9; padding-bottom: 0.5rem; }
         
-        /* 清單與按鈕 */
-        ul { list-style-position: inside; margin-bottom: 1rem; }
-        li { margin-bottom: 0.4rem; }
-        .btn { display: inline-block; background: #4f46e5; color: white; padding: 0.7rem 1.4rem; border-radius: 8px; text-decoration: none; font-weight: bold; border: none; cursor: pointer; transition: background 0.2s; }
-        .btn:hover { background: #4338ca; }
+        /* Links & Tag List */
+        .item-list { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .item-list li a { display: inline-block; background: #f1f5f9; color: #334155; text-decoration: none; padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.95rem; font-weight: 500; transition: all 0.2s; }
+        .item-list li a:hover { background: #4364f7; color: white; }
         
-        /* 頁尾 */
-        footer { text-align: center; padding: 2rem; color: #6b7280; font-size: 0.9rem; }
+        /* Tag styles for Procurement code */
+        .code-tag { font-size: 0.8rem; color: #64748b; background: #f8fafc; border: 1px solid #e2e8f0; padding: 0.2rem 0.5rem; border-radius: 4px; float: right; }
+
+        footer { text-align: center; padding: 2rem; color: #64748b; font-size: 0.9rem; border-top: 1px solid #e2e8f0; background: white; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>歡迎來到我的個人網站</h1>
-        <p>一個現代、簡潔且支援手機與電腦閱讀的網頁</p>
+        <h1>新向系統科技股份有限公司</h1>
+        <p>全系列商品價格冊 (業務專用)</p>
+        <div class="subtitle">找新向給您新方向 | 2024年十月版</div>
     </header>
 
+    <div class="search-container">
+        <input type="text" id="searchInput" class="search-input" onkeyup="filterItems()" placeholder="🔍 快速搜尋品牌或分類（例如：EPSON、Jabra、筆記型電腦）...">
+    </div>
+
     <main class="container">
+
+        <!-- dynabook 筆記型電腦 -->
         <section class="card">
-            <h2>關於本頁面</h2>
-            <p>這是一個輕量化的單頁網站，完全不需要安裝任何後端環境即可運作。不論是在桌機還是手機上開啟，都能完美適應螢幕大小。</p>
+            <h2>💻 dynabook 筆記型電腦</h2>
+            <ul class="item-list">
+                <li><a href="#">商用</a></li>
+                <li><a href="#">dyna 台銀</a></li>
+                <li><a href="#">dyna 周邊</a></li>
+                <li><a href="#">dyna 家用</a></li>
+            </ul>
         </section>
 
+        <!-- 大型顯示器 -->
         <section class="card">
-            <h2>核心特色</h2>
-            <ul>
-                <li>⚡ 載入極快：極簡架構，無冗餘依賴</li>
-                <li>📱 響應式設計：自動適應手機、平板與電腦</li>
-                <li>🎨 質感排版：舒適的字體與卡片式邊框設計</li>
+            <h2>🖥️ 大型顯示器</h2>
+            <ul class="item-list">
+                <li><a href="#">LED牆</a></li>
+                <li><a href="#">TCL</a></li>
+                <li><a href="#">NEC</a></li>
+                <li><a href="#">SHARP</a></li>
+                <li><a href="#">LG</a></li>
+                <li><a href="#">BENQ</a></li>
+                <li><a href="#">Viewsonic</a></li>
+                <li><a href="#">SAMPO</a></li>
+                <li><a href="#">HERAN</a></li>
+                <li><a href="#">PHILIPS</a></li>
+                <li><a href="#">AOC</a></li>
+                <li><a href="#">其他</a></li>
             </ul>
-            <button class="btn" onclick="alert('感謝您的點擊！這是一個互動測試。')">點擊體驗互動</button>
         </section>
+
+        <!-- 會議系統 -->
+        <section class="card">
+            <h2>🎙️ 會議系統 (麥克風/鏡頭/一體機)</h2>
+            <ul class="item-list">
+                <li><a href="#">AVer</a></li>
+                <li><a href="#">BOSCH</a></li>
+                <li><a href="#">CAVE</a></li>
+                <li><a href="#">Jabra</a></li>
+            </ul>
+        </section>
+
+        <!-- 無線協作設備 -->
+        <section class="card">
+            <h2>📡 無線協作設備</h2>
+            <ul class="item-list">
+                <li><a href="#">Barco Clickshare</a></li>
+                <li><a href="#">BenQ InstaShow</a></li>
+                <li><a href="#">NovoConnect</a></li>
+                <li><a href="#">NorthVision</a></li>
+                <li><a href="#">EZ Cast</a></li>
+            </ul>
+        </section>
+
+        <!-- 投影機 -->
+        <section class="card">
+            <h2>📹 投影機與周邊</h2>
+            <ul class="item-list">
+                <li><a href="#">Barco</a></li>
+                <li><a href="#">NEC (含燈泡)</a></li>
+                <li><a href="#">EPSON (含燈泡/配件)</a></li>
+                <li><a href="#">Boxlight (含燈泡)</a></li>
+                <li><a href="#">BenQ</a></li>
+                <li><a href="#">Optoma</a></li>
+                <li><a href="#">Vivitek (含燈泡)</a></li>
+                <li><a href="#">Viewsonic</a></li>
+                <li><a href="#">LG</a></li>
+                <li><a href="#">布幕 (VALA、卡色式)</a></li>
+                <li><a href="#">EPSON 雷板方案</a></li>
+            </ul>
+        </section>
+
+        <!-- 政府電子採購網 -->
+        <section class="card">
+            <h2>🏛️ 政府電子採購網 (台銀標)</h2>
+            <ul class="item-list" style="display: block;">
+                <li style="margin-bottom: 0.5rem;"><a href="#" style="display: flex; justify-content: space-between;">投影機 <span class="code-tag">LP5-112024</span></a></li>
+                <li style="margin-bottom: 0.5rem;"><a href="#" style="display: flex; justify-content: space-between;">冷氣機 <span class="code-tag">LP5-112055</span></a></li>
+                <li style="margin-bottom: 0.5rem;"><a href="#" style="display: flex; justify-content: space-between;">電冰箱 <span class="code-tag">LP5-110009</span></a></li>
+                <li style="margin-bottom: 0.5rem;"><a href="#" style="display: flex; justify-content: space-between;">洗衣機 <span class="code-tag">LP5-113002</span></a></li>
+                <li style="margin-bottom: 0.5rem;"><a href="#" style="display: flex; justify-content: space-between;">電視機 <span class="code-tag">LP5-113023</span></a></li>
+                <li style="margin-bottom: 0.5rem;"><a href="#" style="display: flex; justify-content: space-between;">電腦設備 <span class="code-tag">LP5-112029</span></a></li>
+                <li style="margin-bottom: 0.5rem;"><a href="#" style="display: flex; justify-content: space-between;">企業電腦 <span class="code-tag">LP5-113012</span></a></li>
+                <li style="margin-bottom: 0.5rem;"><a href="#" style="display: flex; justify-content: space-between;">軟體標 <span class="code-tag">1130201</span></a></li>
+            </ul>
+        </section>
+
+        <!-- 周邊設備與 AV over IP -->
+        <section class="card">
+            <h2>🔌 周邊設備 & AV over IP</h2>
+            <ul class="item-list">
+                <li><a href="#">AV Link</a></li>
+                <li><a href="#">Rextron</a></li>
+                <li><a href="#">LINDY</a></li>
+                <li><a href="#">Netgear DATE (AUDINATE)</a></li>
+            </ul>
+        </section>
+
     </main>
 
     <footer>
-        <p>© 2026 我的個人網站. All rights reserved.</p>
+        <p>© 新向系統科技股份有限公司 Neoway System Technology Co., Ltd.</p>
     </footer>
 
+    <script>
+        // 即時關鍵字過濾功能
+        function filterItems() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.card');
+
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(input)) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+    </script>
 </body>
 </html>
