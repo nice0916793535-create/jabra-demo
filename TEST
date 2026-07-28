@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人簡介與展示頁</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f8f9fa; }
+        
+        /* 頁首樣式 */
+        header { background: linear-gradient(135deg, #4f46e5, #6366f1); color: white; padding: 3rem 1.5rem; text-align: center; }
+        header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+        header p { font-size: 1.1rem; opacity: 0.9; }
+        
+        /* 主要內容區 */
+        .container { max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
+        .card { background: white; padding: 1.8rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 1.5rem; }
+        .card h2 { color: #4f46e5; margin-bottom: 0.8rem; border-bottom: 2px solid #eef2ff; padding-bottom: 0.4rem; font-size: 1.4rem; }
+        
+        /* 清單與按鈕 */
+        ul { list-style-position: inside; margin-bottom: 1rem; }
+        li { margin-bottom: 0.4rem; }
+        .btn { display: inline-block; background: #4f46e5; color: white; padding: 0.7rem 1.4rem; border-radius: 8px; text-decoration: none; font-weight: bold; border: none; cursor: pointer; transition: background 0.2s; }
+        .btn:hover { background: #4338ca; }
+        
+        /* 頁尾 */
+        footer { text-align: center; padding: 2rem; color: #6b7280; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>歡迎來到我的個人網站</h1>
+        <p>一個現代、簡潔且支援手機與電腦閱讀的網頁</p>
+    </header>
+
+    <main class="container">
+        <section class="card">
+            <h2>關於本頁面</h2>
+            <p>這是一個輕量化的單頁網站，完全不需要安裝任何後端環境即可運作。不論是在桌機還是手機上開啟，都能完美適應螢幕大小。</p>
+        </section>
+
+        <section class="card">
+            <h2>核心特色</h2>
+            <ul>
+                <li>⚡ 載入極快：極簡架構，無冗餘依賴</li>
+                <li>📱 響應式設計：自動適應手機、平板與電腦</li>
+                <li>🎨 質感排版：舒適的字體與卡片式邊框設計</li>
+            </ul>
+            <button class="btn" onclick="alert('感謝您的點擊！這是一個互動測試。')">點擊體驗互動</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 我的個人網站. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
